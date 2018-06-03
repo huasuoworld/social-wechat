@@ -1,0 +1,53 @@
+package org.hua.constant;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.util.StringUtils;
+
+public class MessageTemplate {
+	
+	private static Logger log = LoggerFactory.getLogger(MessageTemplate.class);
+
+	private Integer wechatId;
+	private String message;
+	private String sign;
+	
+	public Integer getWechatId() {
+		return wechatId;
+	}
+	public void setWechatId(Integer wechatId) {
+		this.wechatId = wechatId;
+	}
+	public String getMessage() {
+		return message;
+	}
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	public String getSign() {
+		return sign;
+	}
+	public void setSign(String sign) {
+		this.sign = sign;
+	}
+	
+	public boolean assertNotNull() {
+		if(wechatId == null) {
+			log.error("wechatId can not be null!");
+			return false;
+		}
+		if(StringUtils.isEmpty(message)) {
+			log.error("message can not be null!");
+			return false;
+		}
+		if(StringUtils.isEmpty(sign)) {
+			log.error("sign can not be null!");
+			return false;
+		}
+		return true;
+	}
+	@Override
+	public String toString() {
+		return "MessageTemplate [wechatId=" + wechatId + ", message=" + message + ", sign=" + sign + "]";
+	}
+}
