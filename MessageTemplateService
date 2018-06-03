@@ -1,0 +1,7 @@
+package org.hua.constant;
+
+public interface MessageTemplateService {
+	
+	public String messageTemplateSender(MessageTemplate messageTemplate);
+
+}
