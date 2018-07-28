@@ -1,0 +1,47 @@
+package org.hua.constant;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.web.client.RestTemplate;
+
+public class WechatTools {
+	
+	private static final Logger log = LoggerFactory.getLogger(WechatTools.class);
+	
+	private static final String SAAS_ADDRESS = "http://127.0.0.1:10002";
+	
+	public static final String CGI_BIN_MESSAGE_TEMPLATE = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=%";
+	
+	public static final String SAAS_API_GET_ACCESS_TOKEN = SAAS_ADDRESS + "/api/access-token/%";
+
+	public static String getAccessToken(RestTemplate restTemplate, Integer wechatId) {
+		String url = String.format(SAAS_API_GET_ACCESS_TOKEN, wechatId);
+		String response = restTemplate.getForObject(url, String.class);
+//		JSONObject json = new JSONObject(response);
+		log.info(url + ">>>>" + response);
+		return response;
+	}
+	
+	public static String messageTemplateSender(RestTemplate restTemplate, String message, String accessToken) {
+		
+		HttpHeaders requestHeaders = new HttpHeaders();
+	    requestHeaders.setContentType(MediaType.APPLICATION_JSON);
+	    HttpEntity<String> request = new HttpEntity<String>(message, requestHeaders);
+		
+		String url = String.format(CGI_BIN_MESSAGE_TEMPLATE, accessToken);
+		String response = restTemplate.postForObject(url, request, String.class);
+//		JSONObject json = new JSONObject(response);
+		log.info(url + ">>>>" + response);
+		return response;
+	}
+	
+	public static String failResponse(String info) {
+		return "{\"success\": false, \"code\":-1, \"info\":\"" + info + "\"}";
+	}
+	public static String successResponse(String info) {
+		return "{\"success\": true, \"code\": 0, \"info\":\"" + info + "\"}";
+	}
+}

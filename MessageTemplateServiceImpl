@@ -1,0 +1,30 @@
+package org.hua.constant;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.client.RestTemplate;
+
+@Service("messageTemplateService")
+public class MessageTemplateServiceImpl implements MessageTemplateService {
+	
+	@Autowired
+	private RestTemplate restTemplate;
+
+	@Override
+	public String messageTemplateSender(MessageTemplate messageTemplate) {
+		boolean valid = messageTemplate.assertNotNull();
+		if(!valid) {
+			return WechatTools.failResponse("param cat not be null!" + messageTemplate.toString());
+		}
+		
+		String accessToken = WechatTools.getAccessToken(restTemplate, messageTemplate.getWechatId());
+		if(StringUtils.isEmpty(accessToken)) {
+			return WechatTools.failResponse("accessToken cat not be null!" + messageTemplate.toString());
+		}
+		
+		String response = WechatTools.messageTemplateSender(restTemplate, messageTemplate.getMessage(), accessToken);
+		return response;
+	}
+
+}

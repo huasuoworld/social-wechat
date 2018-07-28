@@ -1,0 +1,36 @@
+package org.hua.constant;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class MessageTemplateController {
+	
+	private static final Logger log = LoggerFactory.getLogger(MessageTemplateController.class);
+	
+	@Autowired
+	public MessageTemplateService messageTemplateService;
+
+	@RequestMapping("/message/template/json/send")
+	@ResponseBody
+	public String jsonSender(@RequestBody MessageTemplate messageTemplate) {
+		
+		log.info("jsonSender>>" + messageTemplate.toString());
+		
+		return messageTemplateService.messageTemplateSender(messageTemplate);
+	}
+	
+	@RequestMapping("/message/template/form/send")
+	@ResponseBody
+	public String formSender(MessageTemplate messageTemplate) {
+		
+		log.info("formSender>>" + messageTemplate.toString());
+		
+		return messageTemplateService.messageTemplateSender(messageTemplate);
+	}
+}
