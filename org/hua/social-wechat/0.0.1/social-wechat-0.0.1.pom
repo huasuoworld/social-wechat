@@ -47,7 +47,7 @@
 					<message>Maven artifacts for ${project.version}</message>  <!-- git commit message -->
 					<noJekyll>true</noJekyll>                                  <!-- disable webpage processing -->
 					<outputDirectory>${project.build.directory}/social-wechat</outputDirectory> <!-- matches distribution management repository url above -->
-					<branch>refs/heads/gh-pages</branch>                       <!-- remote branch name -->
+					<branch>master</branch>                       <!-- remote branch name -->
 					<includes>
 						<include>**/*</include>
 					</includes>
