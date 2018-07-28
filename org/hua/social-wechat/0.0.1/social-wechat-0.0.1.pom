@@ -1,0 +1,77 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.hua</groupId>
+	<artifactId>social-wechat</artifactId>
+	<version>0.0.1</version>
+	<name>social-wechat</name>
+	<packaging>jar</packaging>
+	<description>social-wechat wechat sdk</description>
+
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<java.version>1.8</java.version>
+		<!-- github server corresponds to entry in ~/.m2/settings.xml -->
+		<github.global.server>github</github.global.server>
+	</properties>
+
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<scm>
+		<url>https://svn.apache.org/viewvc/maven</url>
+	</scm>
+
+	<distributionManagement>
+		<repository>
+			<id>social-wechat</id>
+			<name>Temporary Staging Repository</name>
+			<url>file://${project.build.directory}/social-wechat</url>
+		</repository>
+	</distributionManagement>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>com.github.github</groupId>
+				<artifactId>site-maven-plugin</artifactId>
+				<version>0.12</version>
+				<configuration>
+					<message>Maven artifacts for ${project.version}</message>  <!-- git commit message -->
+					<noJekyll>true</noJekyll>                                  <!-- disable webpage processing -->
+					<outputDirectory>${project.build.directory}/social-wechat</outputDirectory> <!-- matches distribution management repository url above -->
+					<branch>refs/heads/gh-pages</branch>                       <!-- remote branch name -->
+					<includes>
+						<include>**/*</include>
+					</includes>
+					<repositoryName>huasuoworld@outlook.com</repositoryName>      <!-- github repo name -->
+					<repositoryOwner>huasuoworld</repositoryOwner>    <!-- github username -->
+				</configuration>
+				<executions>
+					<!-- run site-maven-plugin's 'site' target as part of the build's normal 
+						'deploy' phase -->
+					<execution>
+						<goals>
+							<goal>site</goal>
+						</goals>
+						<phase>deploy</phase>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+	<organization>
+		<name>huasuoworld</name>
+		<url>http://github.com/huasuoworld</url>
+	</organization>
+	<issueManagement>
+		<url>http://github.com/huasuoworld</url>
+	</issueManagement>
+</project>
